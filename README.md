@@ -1,4 +1,4 @@
-<h1 align="center">Fastapi + Prometheus + Grafana :tada:</h1>
+<h1 align="center">FastAPI + Prometheus + Grafana :tada:</h1>
 
 This is a minimal setup that you can build to monitor your FastAPI microservice.
 
