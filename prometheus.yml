@@ -1,0 +1,21 @@
+# my global config
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: "app"
+
+rule_files:
+
+scrape_configs:
+  - job_name: "prometheus"
+
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "app"
+    dns_sd_configs:
+      - names: ["app"]
+        port: 8000
+        type: A
+        refresh_interval: 5s

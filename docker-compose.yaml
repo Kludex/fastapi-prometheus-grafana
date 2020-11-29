@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    container_name: app
+    ports:
+      - 8000:8000
+    networks:
+      example-network:
+        ipv4_address: 172.16.238.10
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      example-network:
+        ipv4_address: 172.16.238.11
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    user: "472"
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - ./datasource.yml:/etc/grafana/provisioning/datasource.yml
+    env_file:
+      - ./config.monitoring
+    networks:
+      example-network:
+        ipv4_address: 172.16.238.12
+
+networks:
+  example-network:
+    name: example-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24

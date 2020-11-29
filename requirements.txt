@@ -1,0 +1,3 @@
+prometheus-fastapi-instrumentator
+uvicorn
+fastapi
