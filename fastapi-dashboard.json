@@ -213,7 +213,7 @@
       "targets": [
         {
           "$$hashKey": "object:766",
-          "expr": "sum(rate(http_request_duration_seconds_count{status!=\"2xx\"}[30s]))",
+          "expr": "sum(rate(http_requests_total{status=\"5xx\"}[30s]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
